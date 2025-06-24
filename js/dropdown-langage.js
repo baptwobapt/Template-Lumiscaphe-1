@@ -25,26 +25,36 @@ toggleBtn.addEventListener("click", () => {
 
 
 const DescriptionBtn = document.getElementById("descriptionView");
+const configureBtn = document.querySelector(".configure");
 const rightpart = document.querySelector(".right-part");
 
 let view_description = false;
 
-DescriptionBtn.addEventListener("click", () => {
-    // Inverser l'état
-    view_description = !view_description;
-
+function updateDescriptionView() {
     rightpart.classList.toggle("view_description", view_description);
+
+    configureBtn.querySelector("h6").textContent = view_description ? "Retour" : "Configurer";
 
     document.querySelector(".all-description").style.display = view_description ? "flex" : "none";
     document.querySelector(".description").style.display = view_description ? "none" : "";
     document.querySelector(".visual").style.display = view_description ? "none" : "";
     document.querySelector(".catalog").style.display = view_description ? "none" : "";
+    document.querySelector(".little-visual").style.display = view_description ? "flex" : "none";
+}
+
+// Afficher la description quand on clique sur le bouton info
+DescriptionBtn.addEventListener("click", () => {
+    view_description = true;
+    updateDescriptionView();
 });
 
-
-
-
-
+// Si on est en mode description, le bouton "configurer" sert à quitter ce mode
+configureBtn.addEventListener("click", () => {
+    if (view_description) {
+        view_description = false;
+        updateDescriptionView();
+    }
+});
 
 
 

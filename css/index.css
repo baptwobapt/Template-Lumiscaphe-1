@@ -273,12 +273,9 @@ main {
   top:6vw
 
 }
+
 .right-part.view_description .little-visual { grid-area: 2 / 1 / 3 / 3; }
 
-
-.little-visual {
-  display: none;
-}
 
 .little-visual {
   display: none;
@@ -297,7 +294,7 @@ main {
   height: 100%;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  grid-template-rows: auto auto 1fr;
+  grid-template-rows: auto 1fr;
   grid-column-gap: 6%;
   grid-row-gap: 4%;
   max-height: 40vw;
@@ -361,7 +358,8 @@ main {
   position: relative;
   overflow: visible;
   width: 100%;
-  height: 13.92vw;
+  height: 13.6vw;
+  box-sizing: border-box;
 }
 
 .little-description {
@@ -413,10 +411,10 @@ main {
 .fade-shadow {
   content: "";
   position: absolute;
-  bottom: 0;
+  bottom: 0vw;
   left: 0;
   width: 100%;
-  height: 10vw;
+  height: 6vw;
   background: linear-gradient(to top, var(--secondary-color), transparent);
   pointer-events: none;
   border-radius: var(--border-radius);
