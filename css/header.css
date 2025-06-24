@@ -1,0 +1,76 @@
+header {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--background-color) ;
+    padding: 1vw;
+    width: 90%;
+    align-self: center;
+    gap: 2%;
+    flex: 0 0 auto;   
+    position: fixed;
+    z-index: 100;
+}
+
+.part-top { 
+    position: relative; 
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+
+
+.logo {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 5%;
+  
+}
+.logo img {
+    width: 2vw ;
+    height: 2vw ;
+}
+
+.logo h1 {
+    font-family: 'Sony_Sketch_EF';
+    font-weight: 600;
+}
+
+.icons  {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 2vw;
+    font-size: 1.2vw;
+    
+}
+
+.icons img {
+    width: 1.7vw;
+    height: 1.7vw;
+    padding: 1vw;
+    border-radius: 0.8vh;
+}
+
+
+.icons span {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 0.5vw;
+}
+.icons span img {
+    width: 0.8vw;
+    height: 0.8vw;
+}
+
+
+
+
+
+h1 {
+    align-self: flex-end;
+}

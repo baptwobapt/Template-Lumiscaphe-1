@@ -1,0 +1,95 @@
+:root {
+  --primary-color: #211D1D;
+  --secondary-color: #FFFFFF;
+  --opacity-color: lch(11.21% 2.05 19.9 / 0.05);
+  --background-color: #F8F6F6;
+
+  --border-radius: 1.5vw ;
+  --shadow: 0 0.4vw 0.5vw rgba(0, 0, 0, 0.1);
+  --shadow-filter: drop-shadow(0 0.4vw 0.5vw rgba(0, 0, 0, 0.1));
+}
+
+html, body {
+  margin: 0;
+  color: var(--text-color);
+  background-color: var(--background-color) ;
+  height: 100vh;
+}
+
+body {
+    font-family: "Montserrat", sans-serif;
+    display: flex;
+    flex-direction: column;   /* header au‑dessus, main en dessous */
+    max-height: 100vh;        /* ou 100dvh pour gérer le viewport mobile */
+    
+}
+
+
+
+@font-face {
+    font-family: 'Sony_Sketch_EF';
+    src: url('/fonts/Sony_Sketch_EF.ttf');
+}
+
+
+
+
+p {
+  font-size: 0.8vw;
+}
+
+h1 {
+  font-size: 2.6vw;
+  font-weight: 500;
+}
+h2 {
+  font-size: 1.5rem;
+
+}
+
+h3 {
+  font-size: 1.4rem;
+  font-weight: 500;
+}
+h4 {
+  font-size: 2.2vw;
+  font-weight: 500;
+}
+h5 {
+  font-size: 1.4vw;
+  margin: 0;
+}
+h6 {
+  font-size: 1.2vw;
+  margin: 0;
+}
+
+.no-transition * {
+  transition: none !important;
+}
+
+.scale:hover {  
+  transition: transform 0.1s ease;
+  transform: scale(1.1);
+  cursor: pointer;
+}
+
+.backgroud-hover{
+  cursor: pointer;
+}
+.backgroud-hover:hover {
+  transition: transform 0.1s ease;
+  background-color: #0000000d;
+}
+
+main button img , main button {
+    transition: ease-in-out 0.2s;
+}
+main button:hover img , main button:hover {
+    transition: ease-in-out 0.3s;
+}
+
+
+button:hover {
+  transition: ease-in-out 0.3s;
+}
