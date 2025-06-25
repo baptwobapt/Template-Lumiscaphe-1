@@ -2,9 +2,11 @@ header {
     display: flex;
     flex-direction: column;
     background-color: var(--background-color) ;
-    padding: 1vw;
     width: 90%;
+    height: 4vw;
+    padding-top: 1vw;
     align-self: center;
+    justify-content: center;
     gap: 2%;
     flex: 0 0 auto;   
     position: fixed;
@@ -49,10 +51,10 @@ header {
 }
 
 .icons img {
-    width: 1.7vw;
-    height: 1.7vw;
-    padding: 1vw;
-    border-radius: 0.8vh;
+    width: 1.2vw;
+    height: 1.2vw;
+    padding: 0.7vw;
+    border-radius: 0.4vw;
 }
 
 
@@ -60,7 +62,9 @@ header {
     display: flex;
     flex-direction: row;
     align-items: center;
-    gap: 0.5vw;
+    gap: 0.2vw;
+    padding: 0.2vw  0.4vw;
+    border-radius: 0.4vw;
 }
 .icons span img {
     width: 0.8vw;
@@ -69,8 +73,82 @@ header {
 
 
 
-
-
 h1 {
     align-self: flex-end;
 }
+
+
+
+.input-code-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1vw;
+  position: relative;
+  width: 100%;
+  background-color: transparent;
+}
+
+.input {
+    position: absolute;
+  border-style: none;
+  height: 2vw;
+  width: 0vw; 
+  padding: 0.2vw;
+  right: 0;
+  outline: none;
+  padding-right: 4vw;
+  background-color: transparent;
+  color: var(--primary-color);
+  font-size: 1.2vw;
+  transition: all 500ms ease-in-out;
+  overflow: hidden;
+  opacity: 0; /* 👈 invisible visuellement */
+  pointer-events: none; 
+  margin-top: 1vw;
+}
+
+/* Placeholder invisible tant que pas focus */
+.input::placeholder {
+  color: var(--primary-color);
+  transition: color 0.3s ease-in-out;
+}
+
+.input:focus::placeholder {
+  color: var(--primary-color);
+}
+
+.codeBtn{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+    right: 0;
+  cursor: pointer;
+  outline: none;
+  border-style: none;
+  border-radius: 9000vw;
+  background-color: var(--primary-color);
+  transition: 0.2s linear;
+  padding: 0 0.5vw;
+}
+.codeBtn:hover{
+  opacity: 0.5;
+}
+.codeBtn img {
+  filter: invert();
+}
+
+/* Quand l'icône est cliquée ou que le champ est focus */
+.codeBtn:focus ~ .input,
+.input:focus {
+  width: 10vw;
+  border-radius: 0;
+  background-color: transparent;
+  border-bottom: 0.2vw solid var(--primary-color);
+  opacity: 1;
+  pointer-events: auto;
+  margin-bottom: 0vw; ;
+}
+
+
