@@ -24,8 +24,9 @@ body {
     max-height: 100vh;        /* ou 100dvh pour gérer le viewport mobile */
     
 }
-
-
+*::-webkit-scrollbar-track {
+  background-color: none;
+}
 
 @font-face {
     font-family: 'Sony_Sketch_EF';

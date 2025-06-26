@@ -15,7 +15,7 @@ main {
   height: 100%;
   width: 100%;
 }
-.model , .right-part .price  , .brand , .configureBtn , .presentation-info , .filter , .all-description , .little-visual , .box-bottom {
+.model , .right-part .price  , .brand , .configureBtn , .presentation-info , .filter , .all-description ,  .little-visual , .box-bottom {
   background-color: var(--secondary-color);
   box-shadow: var(--shadow);
   border-radius: var(--border-radius);
@@ -51,7 +51,7 @@ main {
   gap: 0.5vw;
 }
 .visualBtn {
-  width: 100%;
+  width: 2.5vw;
   aspect-ratio: 1/1;
   background-color: var(--secondary-color);
   border: 0.1vw solid var(--primary-color);
@@ -61,7 +61,7 @@ main {
   justify-content: center;
 }
 .visualBtn img{
-  width: 100% ;
+  width: 1.4vw ;
 }
 .visualBtn.active {
   box-shadow: inset 0 -0.15vw 0 0vw rgb(0, 0, 0);
@@ -191,8 +191,8 @@ main {
   z-index: 1;
   background: none;
   border: none;
-  top: 0.5vw;
-  right: 0.5vw;
+  top: 1vw;
+  right: 1vw;
   padding: 0.7vw;
   border-radius: 0.4vw;
 
@@ -729,14 +729,21 @@ main {
     padding: 3vw 3vw;
     box-sizing: border-box;
     transition: all 0.5s ease-in-out;
+    position: relative;
 }
-
+.all-description .more-description {
+    background: none;
+    box-shadow: none;
+    position: fixed;
+    right: 33vw;
+    top: 6.5vw;
+}
 
 
 .custom-box {
   display: flex;
   flex-direction: column;
-  height: 100%; /* pour prendre 100% de .description */
+  height: 100%;
   z-index: 0;
 }
 

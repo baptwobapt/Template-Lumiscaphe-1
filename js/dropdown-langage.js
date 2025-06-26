@@ -35,6 +35,9 @@ toggleBtn.addEventListener("click", () => {
     document.querySelector(".description").style.display = expanded ? "none" : "flex";
     document.querySelector(".part-bottom").style.display = expanded ? "none" : "flex";
     document.querySelector(".expandBtn").style.display = expanded ? "none" : "";
+    document.querySelector(".container-visualBtn").style.display = expanded ? "none" : "";
+    document.querySelector(".carousel-container").style.display = expanded ? "none" : "";
+    
 });
 
 
@@ -53,7 +56,7 @@ const descriptionBtns = [
     document.getElementById("descriptionView"),
     document.getElementById("descriptionView2")
 ];
-const configureBtn = document.querySelector(".configureBtn");
+const configureBtn = document.querySelector(".more-description");
 const rightpart = document.querySelector(".right-part");
 
 let view_description = false;
@@ -61,7 +64,6 @@ let view_description = false;
 function updateDescriptionView() {
     rightpart.classList.toggle("view_description", view_description);
 
-    configureBtn.querySelector("h6").textContent = view_description ? "Retour" : "Configurer";
 
     document.querySelector(".all-description").style.display = view_description ? "flex" : "none";
     document.querySelector(".description").style.display = view_description ? "none" : "";
@@ -239,4 +241,19 @@ visualButtons.forEach(btn => {
       carouselContainer.style.display = 'none';
     }
   });
+});
+
+
+
+
+
+let resizeTimer;
+
+window.addEventListener('resize', () => {
+  document.body.classList.add('no-transition');
+
+  clearTimeout(resizeTimer);
+  resizeTimer = setTimeout(() => {
+    document.body.classList.remove('no-transition');
+  }, 300); // attends 300ms après le redimensionnement pour réactiver les transitions
 });
