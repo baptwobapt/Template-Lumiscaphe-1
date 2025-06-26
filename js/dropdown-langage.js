@@ -25,7 +25,7 @@ toggleBtn.addEventListener("click", () => {
 
 
 const DescriptionBtn = document.getElementById("descriptionView");
-const configureBtn = document.querySelector(".configure");
+const configureBtn = document.querySelector(".configureBtn");
 const rightpart = document.querySelector(".right-part");
 
 let view_description = false;
@@ -55,6 +55,32 @@ configureBtn.addEventListener("click", () => {
         updateDescriptionView();
     }
 });
+
+
+const expandBtn = document.getElementById("expandBtn");
+const leftpart = document.querySelector(".left-part");
+let expand_visual = false;
+
+expandBtn.addEventListener("click", () => {
+    expand_visual = !expand_visual;
+
+    leftpart.classList.toggle("expand-visual", expand_visual);
+
+    document.querySelector(".filter").style.display = expand_visual ? "flex" : "none";
+    document.querySelector(".right-part").style.display = expand_visual ? "none" : "";
+    document.querySelector(".catalog").style.display = expand_visual ? "none" : "";
+    document.querySelector(".shape-Models").style.display = expand_visual ? "none" : "";
+    document.querySelector(".searchBox-more-models-container").style.display = expand_visual ? "none" : ""
+});
+
+
+
+
+
+
+
+
+
 
 
 
