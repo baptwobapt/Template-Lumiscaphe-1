@@ -33,7 +33,7 @@ body {
     src: url('/fonts/Sony_Sketch_EF.ttf');
 }
 
-a {
+a , button {
   text-decoration: none;
   color: var(--primary-color);
 }

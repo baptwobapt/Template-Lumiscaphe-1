@@ -64,9 +64,9 @@ main {
   display: flex;
   flex-direction: column;
   gap: 10vw;
-  max-height: 805vh;
+  max-height: none;
   overflow: visible;
-  padding-bottom: 50vw;
+  padding-bottom: 100vw;
 }
 
 .logo img {
@@ -101,6 +101,52 @@ main {
 .shape-Models {
   display: none;
 }
+.container-visualBtn {
+  width: 9%;
+  left: 2vw;
+  gap: 2vw;
+}
+
+.visualBtn {
+  border-radius: 1vw;
+}
+.visualBtn.active {
+  box-shadow: inset 0 -0.7vw 0 0vw rgb(0, 0, 0);
+}
+.visualBtn img{
+  width: 4vw ;
+}
+.expandBtn {
+  display: none;
+}
+
+.carousel-container {
+  width: 60vw;
+  position: absolute;
+  margin: none;
+  bottom: 2%;
+  left: 2%;
+  align-self: flex-start;
+}
+.slider-container {
+  align-self: flex-start;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  height: auto; 
+}
+.slider-container button {
+  background: none;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  width: 15%;
+  height: auto;
+}
+
 
 .searchBox{
   display: none;
@@ -267,7 +313,7 @@ flex-direction: column;
   bottom: -1vw;
   left: 0vw;
   height: auto;
-  padding: 4vw 0;
+  padding: 4vw 0 8vw 0;
   width: 100vw;
   background: #ffffff;
   display: flex;

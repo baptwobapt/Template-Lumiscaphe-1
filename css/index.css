@@ -73,7 +73,6 @@ main {
 .carousel-container {
   width: 38%;
   position: absolute;
-  margin: auto;
   bottom: 2%;
   right: 2%;
 }
