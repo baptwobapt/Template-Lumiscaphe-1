@@ -91,6 +91,114 @@ main {
     align-self: center;
 }
 
+
+.visual.hide-svg {
+    height: 10vw;
+    overflow: hidden;
+    transition: height 0.6s ease;
+    margin:  0vw 0  1vw 0;
+    padding: 1vw 0 0  0;
+}
+.more-models {
+  gap: 2vw;
+}
+.more-models img {
+  width: 3vw;
+  height: 3vw;
+  transform: rotate(-90deg);
+  border-radius: 90vw;
+  background-color: var(--secondary-color);
+  padding: 1vw;
+  filter: invert(100%);
+}
+.catalog {
+  display: flex;
+  flex-direction: row;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  padding-top: 2vw;
+  align-self: flex-end;
+  padding-bottom: 4vw;
+  max-height: none;
+  height: 37vw;
+  min-height: 3vw;
+  margin-left: 100vw;
+  width: 100%;
+}
+.card {
+  height: 60%;
+  margin-left: 5%;
+  max-height: 17vw;
+  max-width: 45vw;
+  padding: 3vw 5vw;
+}
+.card h5{
+  font-size: 4vw;
+}
+.card img {
+  position: absolute;
+  width: 65%;
+  height: auto;
+  object-fit: cover;
+  border-radius: 1vw;
+  top: -45%;
+  left: 2%;
+  z-index: 0;
+}
+
+.all-price {
+flex-direction: column;
+  gap: 0.4vw;
+}
+.all-price .price {
+  font-size: 4vw;
+
+}
+.all-price .explanation {
+  font-size: 2.2vw;
+}
+
+.left-part.expanded {
+  width: 90%;
+  align-self: center;
+}
+/* Agrandir le catalogue */
+.catalog.expanded {
+  width: 100%;
+    height: max-content;
+    max-height: none;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    flex-direction: row;
+    overflow-y: visible;
+    row-gap: 10vw;
+    padding: 10vw 0;
+    transition: all 0.5s ease-in-out;
+}
+
+/* Les cartes prennent 30% de largeur */
+.catalog.expanded .card {
+    width: 40%;
+    height: 14vw;
+    max-height: none;
+    padding: 2vw 3vw;
+    border-radius: var(--border-radius);
+    aspect-ratio: 4 ;
+    border-radius: 5vw;
+}
+.catalog.expanded .card .all-price .price{
+    font-size: 2.5vw;
+}
+.catalog.expanded .card .all-price .explanation{
+    font-size: 1.8vw;
+}
+.catalog.expanded .card img{
+    width: 55%;
+    top: -35%;
+    left: 2%;
+}
+
 .shape-Models-mobile {
   display:initial;
   width: 100%;
@@ -156,64 +264,7 @@ main {
   left:auto;
 }
 
-.more-models {
-  gap: 2vw;
-}
-.more-models img {
-  width: 3vw;
-  height: 3vw;
-  transform: rotate(-90deg);
-  border-radius: 90vw;
-  background-color: var(--secondary-color);
-  padding: 1vw;
-  filter: invert(100%);
-}
-.catalog {
-  display: flex;
-  flex-direction: row;
-  gap: 2vw;
-  overflow-x: auto;
-  scroll-behavior: smooth;
-  padding-top: 2vw;
-  align-self: flex-end;
-  padding-bottom: 4vw;
-  max-height: none;
-  height: 37vw;
-  min-height: 3vw;
-  margin-left: 100vw;
-  width: 100%;
-}
-.card {
-  height: 60%;
-  max-height: 17vw;
-  max-width: 45vw;
-  padding: 3vw 5vw;
-}
-.card h5{
-  font-size: 4vw;
-}
-.card img {
-  position: absolute;
-  width: 65%;
-  height: auto;
-  object-fit: cover;
-  border-radius: 1vw;
-  top: -45%;
-  left: 2%;
-  z-index: 0;
-}
 
-.all-price {
-flex-direction: column;
-  gap: 0.4vw;
-}
-.all-price .price {
-  font-size: 4vw;
-
-}
-.all-price .explanation {
-  font-size: 2.2vw;
-}
 
 
 .right-part {

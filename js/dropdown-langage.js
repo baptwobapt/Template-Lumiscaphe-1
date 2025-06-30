@@ -1,15 +1,40 @@
 const toggleBtn = document.getElementById("toggleView");
 const visual = document.querySelector(".visual");
 const catalog = document.querySelector(".catalog");
+const leftPart = document.querySelector(".left-part");
 let expanded = false;
+
+function isMobile() {
+    return window.innerWidth <= 768; // seuil typique mobile
+}
 
 toggleBtn.addEventListener("click", () => {
     expanded = !expanded;
 
-    // Cacher SVG
-    visual.classList.toggle("hide-svg", expanded);
+    // Comportement différent si mobile
+    if (isMobile()) {
+        console.log("Mode mobile activé");
 
-    // Changer l'affichage du catalogue
+        // Exemple : afficher une version simplifiée
+        catalog.classList.toggle("mobile-expanded", expanded);
+        toggleBtn.querySelector("p").textContent = expanded ? "Voir Moins" : "Voir Tout";
+
+        // Tu peux aussi cacher certains éléments en mobile
+      document.querySelector(".right-part").style.display = expanded ? "none" : "";
+      document.querySelector(".expandBtn").style.display = expanded ? "none" : "";
+      document.querySelector(".container-visualBtn").style.display = expanded ? "none" : "";
+      document.querySelector(".carousel-container").style.display = expanded ? "none" : "";
+      document.querySelector(".shape-Models-mobile").style.display = expanded ? "none" : "";
+
+      catalog.classList.toggle("expanded", expanded);
+      leftPart.classList.toggle("expanded", expanded);
+      catalog.style.scrollBehavior = "auto";
+      visual.classList.toggle("hide-svg", expanded);
+        return; 
+    }
+
+    // Desktop / tablette
+    visual.classList.toggle("hide-svg", expanded);
     catalog.classList.toggle("expanded", expanded);
     catalog.style.scrollBehavior = "auto";
 
@@ -21,14 +46,11 @@ toggleBtn.addEventListener("click", () => {
         });
     }
 
-    // Réactiver le scroll smooth (optionnel)
     setTimeout(() => {
         catalog.style.scrollBehavior = "smooth";
     }, 0);
 
-
     toggleBtn.querySelector("p").textContent = expanded ? "Voir Moins" : "Voir Tout";
-
     toggleBtn.querySelector("img").classList.toggle("rotated", expanded);
 
     document.querySelector(".filter").style.display = expanded ? "flex" : "none";
@@ -37,10 +59,7 @@ toggleBtn.addEventListener("click", () => {
     document.querySelector(".expandBtn").style.display = expanded ? "none" : "";
     document.querySelector(".container-visualBtn").style.display = expanded ? "none" : "";
     document.querySelector(".carousel-container").style.display = expanded ? "none" : "";
-    
 });
-
-
 
 
 
