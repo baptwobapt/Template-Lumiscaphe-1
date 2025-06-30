@@ -33,7 +33,10 @@ body {
     src: url('/fonts/Sony_Sketch_EF.ttf');
 }
 
-
+a {
+  text-decoration: none;
+  color: var(--primary-color);
+}
 
 
 p {

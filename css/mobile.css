@@ -15,7 +15,7 @@
 
 
   p {
-  font-size: 2.5vw;
+  font-size: 2.7vw;
 }
 
 h1 {
@@ -57,7 +57,7 @@ header {
 main {
   flex: 1 0 auto; 
   padding:  0vw 0 1% 0% ;  
-  width: 90%;
+  width: 100%;
   height: 100%;
   justify-self: flex-start;
   align-self: center;
@@ -66,6 +66,7 @@ main {
   gap: 10vw;
   max-height: 805vh;
   overflow: visible;
+  padding-bottom: 50vw;
 }
 
 .logo img {
@@ -86,6 +87,8 @@ main {
 .visual {
    height:55vw;
    position: relative;
+    width: 90%;
+    align-self: center;
 }
 
 .shape-Models-mobile {
@@ -105,6 +108,10 @@ main {
 .searchBox-more-models-container{
   right: 0;
   left:auto;
+}
+
+.more-models {
+  gap: 2vw;
 }
 .more-models img {
   width: 3vw;
@@ -127,6 +134,7 @@ main {
   max-height: none;
   height: 37vw;
   min-height: 3vw;
+  margin-left: 100vw;
   width: 100%;
 }
 .card {
@@ -163,7 +171,7 @@ flex-direction: column;
 
 
 .right-part {
-    width: 100%;
+    width: 90%;
     height: 100%;
     display: grid;
   grid-template-columns: 1fr 1fr;
@@ -174,6 +182,7 @@ flex-direction: column;
     position: inherit;
     right: 5%;
     top: 6vw;
+    align-self: center;
 }
 
   .model { grid-area: 1 / 1 / 2 / 2; }
@@ -243,6 +252,7 @@ flex-direction: column;
 *::-webkit-scrollbar {
   display: none;
 }
+
 
 
 
