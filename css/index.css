@@ -21,7 +21,9 @@ main {
   border-radius: var(--border-radius);
 
 }
-
+.shape-Models-mobile {
+  display: none;
+}
 
 .left-part {
   height: 100%;
@@ -763,7 +765,9 @@ main {
   border-radius: 0 0 var(--border-radius) var(--border-radius);
   z-index: 1;
 }
-
+.mobile-bottom-nav {
+  display: none;
+}
 
 
 
@@ -917,6 +921,15 @@ main {
   .visual {
     display: none;
   }
+
+
+
+
+
+
+
+
+
 }
 
 
