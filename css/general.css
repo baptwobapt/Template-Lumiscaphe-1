@@ -48,26 +48,23 @@ h1 {
   font-weight: 500;
 }
 h2 {
-  font-size: 1.5rem;
-
-}
-
-h3 {
-  font-size: 1.4rem;
-  font-weight: 500;
-}
-h4 {
   font-size: 2.2vw;
   font-weight: 500;
 }
-h5 {
+
+h3 {
   font-size: 1.4vw;
-  margin: 0;
+  margin: 0 ;
 }
-h6 {
+h4 {
   font-size: 1.2vw;
   margin: 0;
 }
+h5 {
+  font-size: 1vw;
+  margin: 0;
+}
+
 
 .no-transition * {
   transition: none !important;

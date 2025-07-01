@@ -66,7 +66,7 @@ main {
   gap: 10vw;
   max-height: none;
   overflow: visible;
-  padding-bottom: 100vw;
+  padding-bottom: 60vw;
 }
 
 .logo img {
@@ -132,7 +132,7 @@ main {
   max-width: 45vw;
   padding: 3vw 5vw;
 }
-.card h5{
+.card h3{
   font-size: 4vw;
 }
 .card img {
@@ -201,6 +201,13 @@ flex-direction: column;
     left: 2%;
 }
 
+.card.selected {
+  box-shadow:
+    inset 0 -2vw 0 0vw var(--primary-color),
+    inset 0 0 0 0.5vw var(--primary-color);
+}
+
+  
 .shape-Models-mobile {
   display:initial;
   width: 100%;

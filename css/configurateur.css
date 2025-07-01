@@ -1,0 +1,227 @@
+
+
+
+header {
+  background-color: var(--background-color);
+}
+
+main {
+  flex: 1 0 auto; 
+  padding:  6vw 0 0 0% ;  
+  width: 90%;
+  height: 100%;
+  justify-self: flex-start;
+  align-self: center;
+  display: flex;
+  flex-direction: row;
+  gap: 2%;
+  max-height: 87vh;
+}
+
+.left-part , .visual , .catalog , .model , .right-part .price , .description , .filter , .all-description , .configure , .little-visual{
+  height: 100%;
+  width: 100%;
+}
+.model , .right-part .price  , .brand  , .summary {
+  background-color: var(--secondary-color);
+  box-shadow: var(--shadow);
+  border-radius: var(--border-radius);
+
+}
+
+.left-part {
+  height: 100%;
+  width: 43%;
+  display: flex ;
+  align-items:flex-start;
+  flex-direction: column;
+  justify-content:space-between;
+  align-self: flex-start;
+  max-height: 43vw;
+  max-height: 87vh;
+}
+
+
+
+  .arrow-icon {
+  width: 1.2vw;
+  height: 1.2vw;
+  margin-left: 0.5vw;
+  transition: transform 0.3s ease;
+}
+
+.brick.open .arrow-icon {
+  transform: rotate(180deg);
+}
+.brick-container {
+  position: relative;
+  width: 100%;
+  padding: 1vw;
+  background: #f5f5f5;
+  min-height: 100vh;
+  box-sizing: border-box;
+}
+
+.brick {
+  position: absolute;
+  width: calc(var(--w) * 1%);
+  height: 3.5vw; /* hauteur fermée */
+  background: white;
+  box-shadow: var(--shadow);
+  border-radius: 0.8vw;
+  box-sizing: border-box;
+  overflow: hidden;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  transition: top 0.4s ease, height 0.4s ease, left 0.4s ease;
+}
+
+.brick.open {
+  height: var(--h);
+}
+
+.brick-header {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 1vw 1.5vw ;
+  font-weight: 500;
+  user-select: none;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  
+}
+
+.brick-content {
+  padding: 1.5vw;
+  user-select: none;
+}
+
+
+
+
+
+.right-part {
+  width: 50%;
+  height: 100%;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  grid-template-rows: auto auto 1fr;
+  grid-column-gap: 4%;
+  grid-row-gap: 4%;
+
+  max-height: min(43vw, 83vh);
+  position: fixed;
+  right: 5%;
+  top:6vw
+}
+
+.visual { grid-area: 1 / 1 / 2 / 3; }
+.summary { grid-area: 2 / 1 / 4 / 2; }
+.price{ grid-area: 2 / 2 / 3 / 3; }
+.brand{ grid-area: 3 / 2 / 4 / 3; }
+
+
+
+
+
+.visual {
+  height: 24vw;
+  position : relative;
+}
+.shape-Models {
+  filter: drop-shadow(var(--shadow));
+}
+.pointView {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: auto;
+  height: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.2vw;
+  border: 0.2vw solid var(--primary-color);
+  border-radius: 90vw;
+}
+
+.pointView .slider {
+  position: absolute;
+  top: 0.2vw;
+  bottom: 0.2vw;
+  left: 0.2vw;
+  width: calc(50% - 0.2vw); /* moitié moins les marges */
+  border-radius: 90vw;
+  background-color: var(--primary-color);
+  transition: transform 0.3s ease;
+  z-index: 0;
+}
+
+.pointView button {
+  position: relative;
+  z-index: 1;
+  padding: 0.4vw 1vw;
+  border-radius: 90vw;
+  background-color: transparent;
+  border: none;
+  color: var(--primary-color);
+  font-weight: bold;
+  cursor: pointer;
+  transition: color 0.3s ease, background-color 0.3s ease;
+}
+
+.pointView button.active {
+  color: var(--secondary-color);
+}
+
+.pointView button:hover {
+  opacity: 0.7 ;
+}
+
+
+
+
+
+
+.summary {
+  width: 27vw;
+  padding: 1.5vw;
+  box-sizing: border-box;
+}
+
+
+
+
+
+.right-part .price{
+  height: 6vw;
+}
+.right-part .price {
+  background-color: var(--primary-color);
+  color: var(--secondary-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2vw;
+}
+.right-part .price p {
+  font-size: 2vw;
+}
+.right-part .price h1 {
+  font-size: 3vw;
+  font-weight: 200;
+  margin: 0;
+  align-self: center;
+}
+
+
+.brand {
+  background-size: auto 90% ;
+  background-repeat: no-repeat;
+  background-position: center;
+  
+}

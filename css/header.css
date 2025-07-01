@@ -4,7 +4,7 @@ header {
     background-color: var(--background-color) ;
     width: 90%;
     height: 4vw;
-    padding-top: 1vw;
+    padding: 1vw;
     align-self: center;
     justify-content: center;
     gap: 2%;

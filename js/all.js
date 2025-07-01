@@ -23,7 +23,7 @@ toggleBtn.addEventListener("click", () => {
       document.querySelector(".right-part").style.display = expanded ? "none" : "";
       document.querySelector(".expandBtn").style.display = expanded ? "none" : "";
       document.querySelector(".container-visualBtn").style.display = expanded ? "none" : "";
-      document.querySelector(".carousel-container").style.display = expanded ? "none" : "";
+      document.querySelector(".carousel-container").style.display =  "none" ;
       document.querySelector(".shape-Models-mobile").style.display = expanded ? "none" : "";
 
       catalog.classList.toggle("expanded", expanded);
@@ -58,7 +58,7 @@ toggleBtn.addEventListener("click", () => {
     document.querySelector(".part-bottom").style.display = expanded ? "none" : "flex";
     document.querySelector(".expandBtn").style.display = expanded ? "none" : "";
     document.querySelector(".container-visualBtn").style.display = expanded ? "none" : "";
-    document.querySelector(".carousel-container").style.display = expanded ? "none" : "";
+    document.querySelector(".carousel-container").style.display =  "none";
 });
 
 

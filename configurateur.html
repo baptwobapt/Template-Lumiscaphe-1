@@ -1,0 +1,111 @@
+<!DOCTYPE html> 
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Template 1</title>
+    <link rel="stylesheet" href="css/general.css">
+    <link rel="stylesheet" href="css/header.css">
+    <link rel="stylesheet" href="css/configurateur.css">
+    <link rel="stylesheet" href="css/mobile.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
+</head>
+<body>
+    <header>
+        <div class="part-top">        
+            <div class="back_to_home"></div>
+            <div class="logo">
+                <img src="img/icons/Logo.png" alt="logo" >
+                <h1>Lumiscaphe</h1>
+            </div>
+            <div class="icons">
+                <div class="input-code-wrapper">
+                    <button class="codeBtn"  > 
+                        <img src="img/icons/barcode.png" alt="glass">
+                    </button>
+                    <input placeholder="Entrer le code" class="input" name="text" type="text">
+                    </div>
+                
+                <img class="backgroud-hover" src="img/icons/person.png" alt="person">
+                <span class="backgroud-hover">
+                    Fr
+                    <img src="img/icons/dropdown-arrow.png" alt="dropdown-arrow">
+                </span>
+            </div>
+        </div>
+    </header>
+    <main>
+        <div class="left-part">
+            <div class="brick-container">
+              <div class="brick" style="--w:100; --h:10vw;">
+                <div class="brick-header">
+                  <h4>Bloc 1</h4>
+                  <img src="img/icons/dropdown-arrow.png" class="arrow-icon" alt="toggle arrow" />
+                </div>
+                <div class="brick-content">Contenu du bloc 1</div>
+              </div>
+              <div class="brick" style="--w:33; --h:7.5vw;">
+                <div class="brick-header">
+                  <h4>Bloc 2</h4>
+                  <img src="img/icons/dropdown-arrow.png" class="arrow-icon" alt="toggle arrow" />
+                </div>
+                <div class="brick-content">Contenu du bloc 2</div>
+              </div>
+              <div class="brick" style="--w:66; --h:7.5vw;">
+                <div class="brick-header">
+                  <h4>Bloc 3</h4>
+                  <img src="img/icons/dropdown-arrow.png" class="arrow-icon" alt="toggle arrow" />
+                </div>
+                <div class="brick-content">Contenu du bloc 3</div>
+              </div>
+              <div class="brick" style="--w:75; --h:12.5vw;">
+                <div class="brick-header">
+                  <h4>Bloc 4</h4>
+                  <img src="img/icons/dropdown-arrow.png" class="arrow-icon" alt="toggle arrow" />
+                </div>
+                <div class="brick-content">Contenu du bloc 4</div>
+              </div>
+              <div class="brick" style="--w:25; --h:12.5vw;">
+                <div class="brick-header">
+                  <h4>Bloc 5</h4>
+                  <img src="img/icons/dropdown-arrow.png" class="arrow-icon" alt="toggle arrow" />
+                </div>
+                <div class="brick-content">Contenu du bloc 5</div>
+              </div>
+            </div>
+          </div>
+
+
+
+        <div class="right-part">
+            <div class="visual">
+                <svg class="shape-Models" width="100%" height="100%"  viewBox="0 0 870 573" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+                        <path d="M0 26C0 11.6406 11.6406 0 26 0H844C858.359 0 870 11.6406 870 26V462C870 476.359 858.359 488 844 488H655.5C641.141 488 629.5 499.641 629.5 514V547C629.5 561.359 617.859 573 603.5 573H26C11.6406 573 0 561.359 0 547V26Z" fill="white"/>
+                </svg>
+                <div class="pointView">
+                <div class="slider"></div> <!-- animation de fond -->
+                    <button class="active">Intérieur</button>
+                    <button>Extérieur</button>
+                </div>
+            </div>
+            <div class="summary">
+                <h4>Récapitulatif</h4>
+            </div>
+            <div class="price">
+                <div class="price"><p>€</p><h1>2 505</h1></div>
+            </div>
+            <div class="brand" style="background-image: url('img/logo sulpie.png');">
+            </div>
+        </div>
+    </main>
+
+    <script src="js/configurateur.js"></script>
+    <script src="js/mobile.js"></script>
+</body>
+</html>
+
+ 
