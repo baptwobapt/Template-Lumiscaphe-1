@@ -1,5 +1,5 @@
 /* mobile.css */
-@media (max-width: 1008px) {
+@media (max-width: 768px) {
 :root {
   --primary-color: #211D1D;
   --secondary-color: #FFFFFF;
