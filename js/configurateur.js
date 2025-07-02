@@ -73,12 +73,86 @@ function layoutBricks() {
 }
 
 document.addEventListener('click', e => {
-  const brick = e.target.closest('.brick');
-  if (brick) {
+  const arrowIcon = e.target.closest('.arrow-icon');
+  if (arrowIcon) {
+    const brick = arrowIcon.closest('.brick');
     brick.classList.toggle('open');
     layoutBricks();
+    e.stopPropagation(); // Empêche la propagation à d'autres éléments
   }
 });
 
+// Garder le reste du code inchangé
 window.addEventListener('load', layoutBricks);
 window.addEventListener('resize', () => setTimeout(layoutBricks, 100));
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+document.addEventListener('DOMContentLoaded', function() {
+  document.querySelectorAll('.color-grid').forEach(setupColorGrid);
+});
+
+function setupColorGrid(grid) {
+  const rows = grid.dataset.rows;
+  const cols = grid.dataset.cols;
+  const fillDirection = grid.dataset.fillDirection || 'row';
+  
+  // Définir la direction de remplissage
+  grid.style.setProperty('--fill-direction', fillDirection);
+  
+  if (cols === "auto" && rows !== "auto") {
+    // Mode: colonnes auto, lignes fixes
+    grid.style.setProperty('--rows', rows);
+    
+    // Calculer le nombre de colonnes nécessaires
+    const itemCount = grid.children.length;
+    const colCount = Math.ceil(itemCount / rows);
+    grid.style.gridTemplateColumns = `repeat(${colCount}, 1fr)`;
+    
+  } else if (rows === "auto" && cols !== "auto") {
+    // Mode: lignes auto, colonnes fixes
+    grid.style.setProperty('--cols', cols);
+    
+    // Calculer le nombre de lignes nécessaires
+    const itemCount = grid.children.length;
+    const rowCount = Math.ceil(itemCount / cols);
+    grid.style.gridTemplateRows = `repeat(${rowCount}, 1fr)`;
+    
+  } else {
+    // Mode par défaut si les deux sont auto ou fixes
+    grid.style.gridTemplateColumns = cols === "auto" ? 'auto' : `repeat(${cols}, 1fr)`;
+    grid.style.gridTemplateRows = rows === "auto" ? 'auto' : `repeat(${rows}, 1fr)`;
+  }
+    const items = grid.querySelectorAll('.color-item');
+  items.forEach(item => {
+    item.addEventListener('click', function() {
+      // Retire la sélection actuelle
+      items.forEach(i => i.classList.remove('selected'));
+      
+      // Ajoute la sélection à l'item cliqué
+      this.classList.add('selected');
+      
+      // Stocke la sélection (optionnel)
+      grid.dataset.selected = this.textContent;
+    });
+  });
+
+  // Sélection initiale du premier élément (optionnel)
+  if (items.length > 0 && !grid.querySelector('.selected')) {
+    items[0].classList.add('selected');
+  }
+}

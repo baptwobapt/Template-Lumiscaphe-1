@@ -6,13 +6,15 @@ header {
     height: 4vw;
     padding: 1vw;
     align-self: center;
-    justify-content: center;
+    justify-content: start;
     gap: 2%;
     flex: 0 0 auto;   
     position: fixed;
     z-index: 100;
 }
-
+body {
+  margin: 0;
+}
 .part-top { 
     position: relative; 
     display: flex;
