@@ -10,7 +10,7 @@ main {
   display: flex;
   flex-direction: row;
   gap: 2%;
-  max-height: 85vh;
+  max-height: 90vh;
 }
 
 .left-part , .visual , .catalog , .model , .right-part .price , .description , .filter , .all-description , .configure , .little-visual{
@@ -32,7 +32,7 @@ main {
   flex-direction: column;
   justify-content:space-between;
   align-self: flex-start;
-  max-height: 87vh;
+  max-height: 100vh;
 }
 
 
