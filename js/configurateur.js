@@ -71,6 +71,61 @@ function layoutBricks() {
 
   container.style.height = `${Math.max(...cols)}px`;
 }
+function setupColorGrids() {
+  document.querySelectorAll('.color-grid').forEach(grid => {
+    const rows = grid.dataset.rows;
+    const cols = grid.dataset.cols;
+    const fillDirection = grid.dataset.fillDirection || 'rows'; // 'cols' ou 'rows'
+    
+    // Reset des propriétés
+    grid.style.gridAutoFlow = '';
+    grid.style.gridTemplateColumns = '';
+    grid.style.gridTemplateRows = '';
+
+    if (cols === "auto" && rows !== "auto") {
+      // Mode: colonnes auto, lignes fixes
+      const itemsCount = grid.children.length;
+      const calculatedCols = Math.ceil(itemsCount / rows);
+      
+      grid.style.gridAutoFlow = fillDirection === 'cols' ? 'column' : 'row';
+      grid.style.gridTemplateRows = `repeat(${rows}, 1fr)`;
+      grid.style.gridTemplateColumns = `repeat(${calculatedCols}, 1fr)`;
+      
+    } else if (rows === "auto" && cols !== "auto") {
+      // Mode: lignes auto, colonnes fixes
+      const itemsCount = grid.children.length;
+      const calculatedRows = Math.ceil(itemsCount / cols);
+      
+      grid.style.gridAutoFlow = fillDirection === 'cols' ? 'column' : 'row';
+      grid.style.gridTemplateColumns = `repeat(${cols}, 1fr)`;
+      grid.style.gridTemplateRows = `repeat(${calculatedRows}, 1fr)`;
+    }
+
+    // Gestion de la sélection
+    const items = grid.querySelectorAll('.color-item');
+    items.forEach(item => {
+      item.addEventListener('click', function() {
+        items.forEach(i => i.classList.remove('selected'));
+        this.classList.add('selected');
+      });
+    });
+  });
+}
+
+// Initialiser après le chargement et le layout des briques
+document.addEventListener('DOMContentLoaded', function() {
+  layoutBricks();
+  setupColorGrids();
+});
+
+window.addEventListener('resize', () => {
+  setTimeout(() => {
+    layoutBricks();
+    setupColorGrids();
+  }, 100);
+});
+// Initialisation
+document.querySelectorAll('.color-grid').forEach(setupColorGrid);
 
 document.addEventListener('click', e => {
   const arrowIcon = e.target.closest('.arrow-icon');
