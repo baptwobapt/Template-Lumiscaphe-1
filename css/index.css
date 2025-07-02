@@ -634,7 +634,7 @@ main {
   position :absolute ;
 }
 .brand .logo-customers {
-  top: 0;
+  top: 10%;
   left: 50%;
   width: 80%;
   transform: translateX(-50%);
