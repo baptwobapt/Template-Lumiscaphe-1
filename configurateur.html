@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="css/header.css">
     <link rel="stylesheet" href="css/configurateur.css">
     <link rel="stylesheet" href="css/mobile.css">
+    <link rel="stylesheet" href="css/variable.css">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -39,89 +40,181 @@
         </div>
     </header>
     <main>
-        <div class="left-part">
-            <div class="brick-container">
-              <div class="brick" style="--w:50; --h:30vw;">
-                <div class="brick-header">
-                  <div class="title-header">                  
-                    <h4>Bloc 1</h4>
-                    <h5>fef</h5></div>
-                    <img src="img/icons/dropdown-arrow.png" class="arrow-icon backgroud-hover" alt="toggle arrow" />
-                </div>
-                <div class="brick-content">
-                  <div class="color-grid" 
-                      data-cols="2" 
-                      data-rows="2" 
-                      data-fill-direction="rows">
-                    <div class="color-item" style="background-image: url('img/fond-test.jpg');" ></div>
-                    <div class="color-item" style="background-color: aqua;"></div>
-                    <div class="color-item" style="background-image: url('img/exemple-sulpie.png');" ></div>
-                    <div class="color-item" style="background-color: rgb(255, 0, 140);"></div>
-                    <div class="color-item" style="background-color: rgb(35, 212, 0);"></div>
-                    <div class="color-item" style="background-image: url('img/fond-test.jpg');" ></div>
-                    <div class="color-item" style="background-color: rgb(83, 117, 117);"></div>
+      <div class="left-part">
+        <div class="brick-container">
+          <div class="brick" style="--w:60; --h:auto;">
+            <div class="brick-header">
+              <div class="title-header">                  
+                <h3>Couleurs</h3>
               </div>
-              </div>
-              </div>
-              <div class="brick" style="--w:50; --h:7.5vw;">
-                <div class="brick-header">
-                  <h4>Bloc 2</h4>
-                  <img src="img/icons/dropdown-arrow.png" class="arrow-icon backgroud-hover" alt="toggle arrow" />
-                </div>
-                <div class="brick-content">Contenu du bloc 2</div>
-              </div>
-              <div class="brick" style="--w:66; --h:7.5vw;">
-                <div class="brick-header">
-                  <h4>Bloc 3</h4>
-                  <img src="img/icons/dropdown-arrow.png" class="arrow-icon backgroud-hover" alt="toggle arrow" />
-                </div>
-                <div class="brick-content">Contenu du bloc 3</div>
-              </div>
-              <div class="brick" style="--w:33; --h:12.5vw;">
-                <div class="brick-header">
-                  <h4>Bloc 5</h4>
-                  <img src="img/icons/dropdown-arrow.png" class="arrow-icon backgroud-hover" alt="toggle arrow" />
-                </div>
-                <div class="brick-content">Contenu du bloc 5</div>
-              </div>
-               <div class="brick" style="--w:25; --h:20vw;">
-                <div class="brick-header">
-                  <h4>Bloc 2</h4>
-                  <img src="img/icons/dropdown-arrow.png" class="arrow-icon backgroud-hover" alt="toggle arrow" />
-                </div>
-                <div class="brick-content">Contenu du bloc 2</div>
-              </div>
-              <div class="brick" style="--w:75; --h:7.5vw;">
-                <div class="brick-header">
-                  <h4>Bloc 2</h4>
-                  <img src="img/icons/dropdown-arrow.png" class="arrow-icon backgroud-hover" alt="toggle arrow" />
-                </div>
-                <div class="brick-content">Contenu du bloc 2</div>
-              </div>
-
-                            <div class="brick" style="--w:100; --h:25vw;">
-                <div class="brick-header">
-                  <h4>Bloc 2</h4>
-                  <img src="img/icons/dropdown-arrow.png" class="arrow-icon backgroud-hover" alt="toggle arrow" />
-                </div>
-                <div class="brick-content">Contenu du bloc 2</div>
-                <div class="color-grid" 
-                      data-cols="auto" 
-                      data-rows="2" 
-                      data-fill-direction="cols">
-                    <div class="color-item" style="background-image: url('img/fond-test.jpg');" ></div>
-                    <div class="color-item" style="background-color: aqua;"></div>
-                    <div class="color-item" style="background-image: url('img/exemple-sulpie.png');" ></div>
-                    <div class="color-item" style="background-color: rgb(255, 0, 140);"></div>
-                    <div class="color-item" style="background-color: rgb(35, 212, 0);"></div>
-                    <div class="color-item" style="background-image: url('img/fond-test.jpg');" ></div>
-                    <div class="color-item" style="background-color: rgb(83, 117, 117);"></div>
-              </div>
-
+              <img src="img/icons/dropdown-arrow.png" class="arrow-icon backgroud-hover" alt="toggle arrow" />
             </div>
-          </div>
-
-
+            
+            <!-- Joueur 1 -->
+            <div class="brick-content" data-player="1">
+              <h4>Joueur 1</h4>
+              
+              <div class="color-group">
+                <div class="name-groupe">                    
+                  <h5>Couleurs standards</h5>
+                  <h6 class="color-group-price">15€</h6>
+                </div>
+                <div class="color-grid" 
+                    data-cols="4" 
+                    data-rows="auto" 
+                    data-fill-direction="cols"
+                    data-selected="-1"
+                    data-carousel="true"       
+                    data-carousel-rows="2"
+                    data-carousel-cols="4">
+                    
+                    <div class="color-item-container">
+                      <div class="color-item" style="background-color: #9b1f1f;" data-name="Rouge" data-price="15€">
+                        Rouge
+                        <div class="item-tooltip">Rouge (15€)</div>
+                      </div>
+                    </div>
+                    
+                    <div class="color-item-container">
+                      <div class="color-item" style="background-color: #9b5b1f;" data-name="Orange" data-price="15€">
+                        Orange
+                        <div class="item-tooltip">Orange (15€)</div>
+                      </div>
+                    </div>
+                    
+                    <div class="color-item-container">
+                      <div class="color-item" style="background-color: #9b991f;" data-name="Jaune" data-price="15€">
+                        Jaune
+                        <div class="item-tooltip">Jaune (15€)</div>
+                      </div>
+                    </div>
+                    
+                    <div class="color-item-container">
+                      <div class="color-item" style="background-color: #889b1f;" data-name="Jaune claire" data-price="15€">
+                        Jaune claire
+                        <div class="item-tooltip">Jaune claire (15€)</div>
+                      </div>
+                    </div>
+                    
+                    <div class="color-item-container">
+                      <div class="color-item" style="background-color: #1f9b1f;" data-name="Vert" data-price="15€">
+                        Vert
+                        <div class="item-tooltip">Vert (15€)</div>
+                      </div>
+                    </div>
+                    
+                    <div class="color-item-container">
+                      <div class="color-item" style="background-color: #1f9b91;" data-name="Bleu clair" data-price="15€">
+                        Bleu clair
+                        <div class="item-tooltip">
+                            <div class="item-name"></div>
+                            <div class="item-price"></div>
+                        </div>
+                      </div>
+                    </div>
+                    
+                    <div class="color-item-container">
+                      <div class="color-item" style="background-color: #889b1f;" data-name="Jaune claire" data-price="15€">
+                        Jaune claire
+                        <div class="item-tooltip">Jaune claire (15€)</div>
+                      </div>
+                    </div>
+                    
+                    <div class="color-item-container">
+                      <div class="color-item" style="background-color: #1f9b1f;" data-name="Vert" data-price="15€">
+                        Vert
+                        <div class="item-tooltip">Vert (15€)</div>
+                      </div>
+                    </div>
+                    
+                    <div class="color-item-container">
+                      <div class="color-item" style="background-color: #1f9b91;" data-name="Bleu clair" data-price="15€">
+                        Bleu clair
+                        <div class="item-tooltip">Bleu clair (15€)</div>
+                      </div>
+                    </div>
+                </div>
+                <button class="carousel-arrow prev" aria-label="Précédent">
+                  <svg viewBox="0 0 24 24" width="24" height="24">
+                    <path d="M15.41 16.59L10.83 12l4.58-4.59L14 6l-6 6 6 6 1.41-1.41z"/>
+                  </svg>
+                </button>
+                <button class="carousel-arrow next" aria-label="Suivant">
+                  <svg viewBox="0 0 24 24" width="24" height="24">
+                    <path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z"/>
+                  </svg>
+                </button>
+              </div>
+              
+              <div class="color-group">
+                <div class="name-groupe">                    
+                  <h5>Couleurs Premium</h5>
+                  <h6 class="color-group-price">25€</h6>
+                </div>
+                <div class="color-grid" 
+                    data-cols="4" 
+                    data-rows="auto" 
+                    data-fill-direction="cols"
+                    data-selected="-1"
+                    data-carousel="false"       
+                    data-carousel-rows="2"
+                    data-carousel-cols="3">
+                    
+                    <div class="color-item-container">
+                      <div class="color-item" style="background-color: #1f639b;" data-name="Bleu" data-price="25€">
+                        Bleu
+                        <div class="item-tooltip">Bleu (25€)</div>
+                      </div>
+                    </div>
+                    
+                    <div class="color-item-container">
+                      <div class="color-item" style="background-color: #1f219b;" data-name="Bleu Foncé" data-price="25€">
+                        Bleu Foncé
+                        <div class="item-tooltip">Bleu Foncé (25€)</div>
+                      </div>
+                    </div>
+                    
+                    <div class="color-item-container">
+                      <div class="color-item" style="background-color: #691f9b;" data-name="Violet" data-price="25€">
+                        Violet
+                        <div class="item-tooltip">Violet (25€)</div>
+                      </div>
+                    </div>
+                    
+                    <div class="color-item-container">
+                      <div class="color-item" style="background-color: #9b1f67;" data-name="Rose" data-price="25€">
+                        Rose
+                        <div class="item-tooltip">Rose (25€)</div>
+                      </div>
+                    </div>
+                    
+                    <div class="color-item-container">
+                      <div class="color-item" style="background-color: #333333;" data-name="Noir" data-price="25€">
+                        Noir
+                        <div class="item-tooltip">Noir (25€)</div>
+                      </div>
+                    </div>
+                    
+                    <div class="color-item-container">
+                      <div class="color-item" style="background-color: #cccccc;" data-name="Blanc" data-price="25€">
+                        Blanc
+                        <div class="item-tooltip">Blanc (25€)</div>
+                      </div>
+                    </div>
+                </div>
+                <button class="carousel-arrow prev" aria-label="Précédent">
+                  <svg viewBox="0 0 24 24" width="24" height="24">
+                    <path d="M15.41 16.59L10.83 12l4.58-4.59L14 6l-6 6 6 6 1.41-1.41z"/>
+                  </svg>
+                </button>
+                <button class="carousel-arrow next" aria-label="Suivant">
+                  <svg viewBox="0 0 24 24" width="24" height="24">
+                    <path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z"/>
+                  </svg>
+                </button>
+              </div>
+            </div>
+            
 
         <div class="right-part">
             <div class="visual">
