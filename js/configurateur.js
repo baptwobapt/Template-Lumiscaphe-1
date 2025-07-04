@@ -171,63 +171,171 @@ function calculateAutoHeight(brick) {
 function setupColorGrids() {
   document.querySelectorAll('.color-grid').forEach(grid => {
     const config = {
-      cols: grid.dataset.cols,
-      rows: grid.dataset.rows,
-      carousel: grid.dataset.carousel === "true",
-      carouselRows: parseInt(grid.dataset.carouselRows) || 2,
-      carouselCols: parseInt(grid.dataset.carouselCols) || 4,
-      fillDirection: grid.dataset.fillDirection || 'cols',
-      selected: parseInt(grid.dataset.selected) || 0
+      presentation: grid.dataset.presentation || "basic",
+      cols: grid.dataset.cols === "auto" ? "auto" : parseInt(grid.dataset.cols) || 4,
+      rows: grid.dataset.rows === "auto" ? "auto" : parseInt(grid.dataset.rows) || "auto",
+      fillDirection: grid.dataset.fillDirection || 'cols'
     };
     
-    const tooltip = grid.parentElement.querySelector('.color-tooltip');
-    
-    if (config.carousel) {
-      initBrickCarousel(grid, config);
+    if (config.presentation === "carousel") {
+      initBrickCarousel(grid, config, false);
+    } else if (config.presentation === "scroll") {
+      setupScrollGrid(grid, config); // Nouvelle fonction pour gérer le scroll
     } else {
       applyGridLayout(grid, config);
     }
     
-    setupGridItems(grid, config, tooltip);
+    setupGridItems(grid, config);
   });
 }
+function setupScrollGrid(grid, config) {
+  const items = Array.from(grid.querySelectorAll('.color-item'));
+  
+  // Réinitialiser le style
+  grid.innerHTML = '';
+  grid.style.display = 'flex';
+  grid.style.flexDirection = 'column';
+  grid.style.flexWrap = 'nowrap';
+  grid.style.overflowX = 'auto';
+  
 
-function applyGridLayout(grid, config) {
-  if (config.cols === "auto" && config.rows !== "auto") {
-    const itemsCount = grid.children.length;
-    const calculatedCols = Math.ceil(itemsCount / config.rows);
-    grid.style.gridTemplateRows = `repeat(${config.rows}, 1fr)`;
-    grid.style.gridTemplateColumns = `repeat(${calculatedCols}, 1fr)`;
-  } else if (config.rows === "auto" && config.cols !== "auto") {
-    const itemsCount = grid.children.length;
-    const calculatedRows = Math.ceil(itemsCount / config.cols);
-    grid.style.gridTemplateColumns = `repeat(${config.cols}, 1fr)`;
-    grid.style.gridTemplateRows = `repeat(${calculatedRows}, 1fr)`;
-  } else {
-    grid.style.gridTemplateColumns = config.cols === "auto" ? 'auto' : `repeat(${config.cols}, 1fr)`;
-    grid.style.gridTemplateRows = config.rows === "auto" ? 'auto' : `repeat(${config.rows}, 1fr)`;
+  
+  // Créer les lignes
+  for (let row = 0; row < config.rows; row++) {
+    const rowContainer = document.createElement('div');
+    rowContainer.style.display = 'flex';
+    rowContainer.style.gap = '1vw';
+    // Ajouter les éléments selon fill-direction
+    if (config.fillDirection === 'rows') {
+      const itemsPerRow = Math.ceil(items.length / config.rows);
+      const startIdx = row * itemsPerRow;
+      const endIdx = Math.min(startIdx + itemsPerRow, items.length);
+      
+      for (let i = startIdx; i < endIdx; i++) {
+        rowContainer.appendChild(items[i].cloneNode(true));
+      }
+    } else {
+      for (let col = 0; col < Math.ceil(items.length / config.rows); col++) {
+        const idx = col * config.rows + row;
+        if (idx < items.length) {
+          rowContainer.appendChild(items[idx].cloneNode(true));
+        }
+      }
+    }
+    
+    grid.appendChild(rowContainer);
   }
+  
+  // Masquer les flèches pour le mode scroll
+  const prevBtn = grid.parentElement.querySelector('.prev');
+  const nextBtn = grid.parentElement.querySelector('.next');
+  if (prevBtn && nextBtn) {
+    prevBtn.style.display = 'none';
+    nextBtn.style.display = 'none';
+  }
+  
+  // Forcer le scroll à revenir au début
+  setTimeout(() => {
+    grid.scrollLeft = 0;
+  }, 10);
 }
 
-function initBrickCarousel(grid, config) {
+function initBrickCarousel(grid, config, isScroll) {
   const items = Array.from(grid.querySelectorAll('.color-item'));
-  const itemsPerSlide = config.carouselRows * config.carouselCols;
+  const itemsPerSlide = config.rows * config.cols;
   const prevBtn = grid.parentElement.querySelector('.prev');
   const nextBtn = grid.parentElement.querySelector('.next');
   
   grid.innerHTML = '';
   const track = document.createElement('div');
   track.className = 'brick-carousel-track';
+  
+  if (isScroll) {
+    track.classList.add('scrollable');
+    track.style.setProperty('--scroll-rows', config.rows);
+    grid.classList.add('scroll-container');
+  }
+  
   grid.appendChild(track);
 
   createCarouselSlides(track, items, config, itemsPerSlide);
-  applyCarouselStyles(grid, track, config.carouselRows, config.carouselCols);
+  applyCarouselStyles(grid, track, config.rows, config.cols, isScroll, config.fillDirection);
   
-  if (items.length > itemsPerSlide) {
+  if (items.length > itemsPerSlide && !isScroll) {
     setupCarouselNavigation(grid, track, items.length, itemsPerSlide, prevBtn, nextBtn);
   } else if (prevBtn && nextBtn) {
     prevBtn.style.display = 'none';
     nextBtn.style.display = 'none';
+  }
+}
+
+
+
+
+
+function applyGridLayout(grid, config) {
+  const items = grid.querySelectorAll('.color-item');
+  const itemCount = items.length;
+  const containerWidth = grid.clientWidth;
+  const itemWidth = 3; // 3vw
+  const gap = 1; // 1vw
+  const fillByRows = config.fillDirection === 'rows';
+
+  // Reset styles
+  grid.style.display = 'grid';
+  grid.style.gap = gap + 'vw';
+  grid.style.gridAutoFlow = '';
+  grid.style.gridTemplateColumns = '';
+  grid.style.gridTemplateRows = '';
+
+  // 1. Mode auto-auto - Remplissage dynamique par ligne
+  if (config.cols === "auto" && config.rows === "auto") {
+    // Calcul du nombre max d'éléments par ligne
+    const maxItemsPerRow = Math.max(1, Math.floor(
+      (containerWidth + gap) / (itemWidth + gap)
+    ));
+    
+    grid.style.gridTemplateColumns = `repeat(auto-fill, minmax(${itemWidth}vw, 1fr))`;
+    grid.style.gridAutoRows = `${itemWidth}vw`;
+    return;
+  }
+
+  // 2. Colonnes auto, lignes fixes
+  if (config.cols === "auto") {
+    const colsNeeded = Math.ceil(itemCount / config.rows);
+    grid.style.gridTemplateColumns = `repeat(${colsNeeded}, 1fr)`;
+    grid.style.gridTemplateRows = `repeat(${config.rows}, 1fr)`;
+  }
+  // 3. Lignes auto, colonnes fixes
+  else if (config.rows === "auto") {
+    const rowsNeeded = Math.ceil(itemCount / config.cols);
+    grid.style.gridTemplateRows = `repeat(${rowsNeeded}, 1fr)`;
+    grid.style.gridTemplateColumns = `repeat(${config.cols}, 1fr)`;
+  }
+  // 4. Dimensions fixes
+  else {
+    grid.style.gridTemplateColumns = `repeat(${config.cols}, 1fr)`;
+    grid.style.gridTemplateRows = `repeat(${config.rows}, 1fr)`;
+  }
+
+  // Réorganisation physique pour fill-direction cols
+  if (!fillByRows && !(config.cols === "auto" && config.rows === "auto")) {
+    const itemsArray = Array.from(items);
+    grid.innerHTML = '';
+    
+    const cols = config.cols === "auto" ? 
+      Math.ceil(itemCount / config.rows) : config.cols;
+    const rows = config.rows === "auto" ? 
+      Math.ceil(itemCount / config.cols) : config.rows;
+    
+    for (let col = 0; col < cols; col++) {
+      for (let row = 0; row < rows; row++) {
+        const index = col * rows + row;
+        if (index < itemsArray.length) {
+          grid.appendChild(itemsArray[index].cloneNode(true));
+        }
+      }
+    }
   }
 }
 
@@ -246,22 +354,95 @@ function createCarouselSlides(track, items, config, itemsPerSlide) {
   }
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 function organizeItemsInSlide(slide, items, config) {
-  items.forEach((item, index) => {
-    const itemContainer = document.createElement('div');
-    itemContainer.className = 'brick-carousel-item-container';
-    itemContainer.appendChild(item.cloneNode(true));
-    slide.appendChild(itemContainer);
-  });
+  const fillByRows = config.fillDirection === 'rows';
+  const cols = parseInt(config.cols) || 4;
+  const rows = parseInt(config.rows) || 2;
+  const totalItems = cols * rows;
+  
+  // Créer une grille temporaire pour organiser les éléments
+  const tempGrid = document.createElement('div');
+  tempGrid.style.display = 'grid';
+  tempGrid.style.gridTemplateColumns = `repeat(${cols}, 1fr)`;
+  tempGrid.style.gridTemplateRows = `repeat(${rows}, 1fr)`;
+  tempGrid.style.width = '0';
+  tempGrid.style.height = '0';
+  tempGrid.style.visibility = 'hidden';
+  tempGrid.style.position = 'absolute';
+  
+  // Ajouter les éléments dans l'ordre logique
+  for (let i = 0; i < totalItems; i++) {
+    if (i < items.length) {
+      const itemContainer = createItemContainer(items[i]);
+      
+      // Calculer la position selon fill-direction
+      let row, col;
+      if (fillByRows) {
+        row = Math.floor(i / cols);
+        col = i % cols;
+      } else {
+        col = Math.floor(i / rows);
+        row = i % rows;
+      }
+      
+      itemContainer.style.gridColumn = col + 1;
+      itemContainer.style.gridRow = row + 1;
+      tempGrid.appendChild(itemContainer);
+    }
+  }
+  
+  // Transférer les éléments organisés dans la slide réelle
+  while (tempGrid.firstChild) {
+    slide.appendChild(tempGrid.firstChild);
+  }
 }
 
-function applyCarouselStyles(grid, track, rows, cols) {
+function createItemContainer(item) {
+  const clonedItem = item.cloneNode(true);
+  const itemContainer = document.createElement('div');
+  itemContainer.className = 'brick-carousel-item-container';
+  itemContainer.appendChild(clonedItem);
+  return itemContainer;
+}
+function applyCarouselStyles(grid, track, rows, cols, isScroll, fillDirection = 'cols') {
   const slides = track.querySelectorAll('.brick-carousel-slide');
+  
+  if (isScroll) {
+    grid.style.overflowX = 'auto';
+    grid.style.overflowY = 'hidden';
+    grid.style.scrollSnapType = 'x mandatory';
+    
+    track.style.display = 'grid';
+    track.style.gridTemplateColumns = `repeat(auto-fill, 100%)`;
+    track.style.gridTemplateRows = `repeat(${rows}, 1fr)`;
+  }
+  
   slides.forEach(slide => {
+    slide.style.display = 'grid';
+    if (fillDirection === 'rows') {
+      slide.style.gridAutoFlow = 'row';
+    }
     slide.style.gridTemplateRows = `repeat(${rows}, 1fr)`;
     slide.style.gridTemplateColumns = `repeat(${cols}, 1fr)`;
   });
 }
+
 
 function setupCarouselNavigation(grid, track, totalItems, itemsPerSlide, prevBtn, nextBtn) {
   if (!prevBtn || !nextBtn) return;
@@ -293,51 +474,115 @@ function setupCarouselNavigation(grid, track, totalItems, itemsPerSlide, prevBtn
   
   updateCarousel();
 }
-function setupGridItems(grid, config, tooltip = null) {
-  const items = grid.querySelectorAll('.color-item');
+function setupGridItems(grid) {
   const colorGroup = grid.closest('.color-group');
-  const playerContent = grid.closest('.brick-content');
-  const playerNumber = playerContent.dataset.player;
+  const groupPriceElement = colorGroup.querySelector('.color-group-price');
+  const brickContent = grid.closest('.brick-content');
+  const defaultSelectedName = brickContent.dataset.selected;
+  
+  // Créer un conteneur global pour les tooltips
+  let tooltipContainer = document.getElementById('tooltip-container');
+  if (!tooltipContainer) {
+    tooltipContainer = document.createElement('div');
+    tooltipContainer.id = 'tooltip-container';
+    document.body.appendChild(tooltipContainer);
+  }
+  
+  // Vérifier si le contenu est du texte brut
+  const isStaticText = groupPriceElement.textContent.trim() !== '' && 
+                      !groupPriceElement.textContent.trim().match(/^\d+€?$/);
+  
+  let selectedItem = null;
+  const items = grid.querySelectorAll('.color-item');
 
-  // Initialisation du stockage global si inexistant
-  if (!window.colorSelections) window.colorSelections = {};
+  // Trouver l'item sélectionné par défaut
+  if (defaultSelectedName) {
+    selectedItem = Array.from(items).find(item => item.dataset.name === defaultSelectedName);
+    if (selectedItem && !isStaticText) {
+      groupPriceElement.textContent = selectedItem.dataset.price;
+    }
+  }
 
-  items.forEach((item, index) => {
-    const colorName = item.dataset.name || item.textContent.trim();
-    const colorPrice = item.dataset.price || colorGroup.querySelector('.color-group-price').textContent;
+  items.forEach(item => {
+    const originalTooltip = item.querySelector('.item-tooltip');
+    const colorName = item.dataset.name;
+    const colorPrice = item.dataset.price;
 
-    // Sélection initiale
-    if (index === config.selected) {
-      item.classList.add('selected');
-      window.colorSelections[`player${playerNumber}`] = { name: colorName, price: colorPrice };
+    // Supprimer l'ancien tooltip
+    if (originalTooltip) {
+      originalTooltip.remove();
     }
 
-    item.addEventListener('click', function() {
-      // Désélectionner tous les items du joueur
-      playerContent.querySelectorAll('.color-item').forEach(i => i.classList.remove('selected'));
-      
-      // Sélectionner l'item cliqué
-      this.classList.add('selected');
-      grid.dataset.selected = index.toString();
-      
-      // Stocker la sélection
-      window.colorSelections[`player${playerNumber}`] = {
-        name: colorName,
-        price: colorPrice
-      };
+    // Créer un nouveau tooltip dans le conteneur global
+    const tooltip = document.createElement('div');
+    tooltip.className = 'global-tooltip';
+    
+    tooltip.innerHTML = `
+      <div class="item-name">${colorName}</div>
+      <div class="item-price">${colorPrice}</div>
+    `;
+    
+    tooltipContainer.appendChild(tooltip);
+
+    // Sélection initiale
+    if (item === selectedItem) {
+      item.classList.add('selected');
+    }
+
+    // Fonction pour positionner le tooltip
+    function positionTooltip() {
+      const rect = item.getBoundingClientRect();
+      tooltip.style.left = `${rect.left + rect.width / 2}px`;
+      tooltip.style.top = `${rect.top - 10}px`;
+      tooltip.style.transform = 'translateX(-50%) translateY(-100%)';
+    }
+
+    // Gestion hover avec timer
+    let hoverTimer;
+    item.addEventListener('mouseenter', () => {
+      hoverTimer = setTimeout(() => {
+        positionTooltip();
+        tooltip.style.opacity = '1';
+      }, 500);
+    });
+
+    item.addEventListener('mouseleave', () => {
+      clearTimeout(hoverTimer);
+      tooltip.style.opacity = '0';
+    });
+
+    // Gestion clic
+    item.addEventListener('click', () => {
+      // Désélectionner tous les items dans ce brick-content
+      brickContent.querySelectorAll('.color-item').forEach(i => {
+        i.classList.remove('selected');
+      });
+
+      // Sélectionner le nouvel item
+      item.classList.add('selected');
+      selectedItem = item;
+
+      // Mettre à jour le prix seulement si pas de texte statique
+      if (!isStaticText) {
+        groupPriceElement.textContent = colorPrice;
+      }
     });
   });
+
+  // Si aucun item sélectionné et pas de texte statique, vider le prix
+  if (!selectedItem && !isStaticText) {
+    groupPriceElement.textContent = '';
+  }
 }
 
 // Initialisation
 document.querySelectorAll('.color-grid').forEach(grid => {
-  const tooltip = grid.parentElement.querySelector('.color-tooltip');
   setupGridItems(grid, {
     cols: grid.dataset.cols,
     rows: grid.dataset.rows,
     selected: parseInt(grid.dataset.selected) || -1,
     carousel: grid.dataset.carousel === "true"
-  }, tooltip);
+  });
 });
 
 function updatePlayerTitle(playerNumber, colorName, price) {
@@ -347,6 +592,152 @@ function updatePlayerTitle(playerNumber, colorName, price) {
   }
 }
 
+
+
+
+
+
+
+
+function organizeGridItems(grid, items, rows, cols, fillDirection) {
+  grid.innerHTML = '';
+  grid.style.display = 'flex';
+  grid.style.flexDirection = 'column';
+  grid.style.flexWrap = 'nowrap';
+  grid.style.height = `${rows * 3.5}vw`; // 3.5vw par row
+
+  // Création des lignes
+  for (let r = 0; r < rows; r++) {
+    const row = document.createElement('div');
+    row.style.display = 'flex';
+    row.style.gap = '1vw';
+    
+    // Remplissage selon la direction
+    if (fillDirection === 'rows') {
+      const startIdx = r * cols;
+      const endIdx = Math.min(startIdx + cols, items.length);
+      for (let i = startIdx; i < endIdx; i++) {
+        row.appendChild(items[i].cloneNode(true));
+      }
+    } else { // fillDirection === 'cols'
+      for (let c = 0; c < cols; c++) {
+        const idx = c * rows + r;
+        if (idx < items.length) {
+          row.appendChild(items[idx].cloneNode(true));
+        }
+      }
+    }
+    
+    grid.appendChild(row);
+  }
+}
+
+
+
+
+
+function setupPerfectDragScroll() {
+  document.querySelectorAll('.color-grid[data-presentation="scroll"]').forEach(grid => {
+    let isDragging = false;
+    let startX;
+    let startScrollLeft;
+    let animationId;
+    let lastX;
+    let velocity = 0;
+    let lastTime;
+    let deltaX = 0;
+    let lastDeltaTime = 0;
+
+    // Animation d'inertie améliorée
+    const inertiaAnimation = (time) => {
+      if (!lastTime) lastTime = time;
+      const deltaTime = Math.min(time - lastTime, 100);
+      lastTime = time;
+
+      // Ajout d'un seuil minimal pour arrêter
+      if (Math.abs(velocity) < 0.3 || deltaTime > 100) {
+        velocity = 0;
+        return;
+      }
+
+      // Appliquer la vélocité avec frottement
+      const friction = 0.92 - Math.min(Math.abs(velocity) * 0.005, 0.2);
+      grid.scrollLeft += velocity * (deltaTime / 16);
+      velocity *= friction;
+
+      animationId = requestAnimationFrame(inertiaAnimation);
+    };
+
+    const startDrag = (clientX) => {
+      isDragging = true;
+      grid.style.cursor = 'grabbing';
+      startX = clientX;
+      startScrollLeft = grid.scrollLeft;
+      lastX = clientX;
+      velocity = 0;
+      deltaX = 0;
+      lastDeltaTime = 0;
+      cancelAnimationFrame(animationId);
+    };
+
+    const moveDrag = (clientX) => {
+      if (!isDragging) return;
+      
+      const now = performance.now();
+      deltaX = clientX - lastX;
+      lastX = clientX;
+
+      // Calcul de vélocité plus précis
+      if (lastDeltaTime > 0) {
+        velocity = deltaX / (now - lastDeltaTime) * 16;
+      }
+      lastDeltaTime = now;
+
+      grid.scrollLeft = startScrollLeft - (clientX - startX);
+    };
+
+    const endDrag = () => {
+      if (!isDragging) return;
+      isDragging = false;
+      grid.style.cursor = '';
+
+      // Seuil de vélocité minimum avant inertie
+      if (Math.abs(velocity) > 1) {
+        animationId = requestAnimationFrame(inertiaAnimation);
+      } else {
+        velocity = 0;
+      }
+    };
+
+    // Événements Souris
+    grid.addEventListener('mousedown', (e) => {
+      e.preventDefault();
+      startDrag(e.clientX);
+    });
+
+    document.addEventListener('mousemove', (e) => {
+      if (!isDragging) return;
+      e.preventDefault();
+      moveDrag(e.clientX);
+    });
+
+    document.addEventListener('mouseup', endDrag);
+
+    // Événements Tactile
+    grid.addEventListener('touchstart', (e) => {
+      e.preventDefault();
+      startDrag(e.touches[0].clientX);
+    });
+
+    document.addEventListener('touchmove', (e) => {
+      if (!isDragging) return;
+      e.preventDefault();
+      moveDrag(e.touches[0].clientX);
+    }, { passive: false });
+
+    document.addEventListener('touchend', endDrag);
+  });
+}
 // ========================================
 // GESTION DES ÉVÉNEMENTS
 // ========================================
@@ -379,6 +770,7 @@ function initializeApp() {
   layoutBricks();
   setupColorGrids();
   setupArrowClickEvents();
+  setupPerfectDragScroll(); // Ajoutez cette ligne
   
   window.addEventListener('load', layoutBricks);
   window.addEventListener('resize', handleWindowResize);

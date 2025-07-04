@@ -69,6 +69,11 @@ h5 {
   color: var(--opacity-color2);
   font-weight: 500;
 }
+h6 {
+  font-size: 0.7vw;
+  font-weight: 700;
+}
+
 
 
 .no-transition * {

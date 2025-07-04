@@ -132,7 +132,7 @@ main {
   justify-self: flex-start;
   gap: 1vw;
   height: max-content;
-  padding: 0.5vw;
+  padding: 0.5vw 0;
   position: relative;
   width: 100%;
 }
@@ -194,11 +194,11 @@ main {
 }
 
 .carousel-arrow.prev {
-  left: 2%; /* 3vw = espacement */
+  left: -1vw; /* 3vw = espacement */
 }
 
 .carousel-arrow.next {
-  right:2% /* 3vw = espacement */
+  right:-1vw /* 3vw = espacement */
 }
 
 .carousel-arrow.disabled {
@@ -395,6 +395,11 @@ main {
   flex-direction: row;
   align-items: flex-end;
   gap: 1vw; 
+  
+}
+.title-header h3 {
+  font-size:1.2vw;
+  font-weight: 500;
 }
 /* ========================================
    GESTION DES GRILLES DE COULEURS
@@ -440,19 +445,20 @@ main {
   flex: 0 0 100%;
   display: grid;
   gap: 1vw;
-  height: 100%;
-  width: 50ù;
+  height: fit-content;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .brick-carousel-item-container {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 100;
-  height: 100%;
+  width: 100%;
+  height: fit-content;
   overflow: hidden;
   position: relative;
-  padding: 0.5vw;
+  padding: 0.4vw;
   box-sizing: border-box; 
 }
 .brick-carousel-item-container.empty {
@@ -520,38 +526,213 @@ main {
   overflow: visible;
 }
 
-.item-tooltip {
+
+
+/* Dans votre fichier CSS */
+#tooltip-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 10000;
+}
+
+.global-tooltip {
   position: absolute;
-  bottom: calc(100% + 0.5vw);
-  left: 50%;
-  transform: translateX(-50%);
-  background: var(--primary-color);
-  color: rgb(0, 0, 0);
-  padding: 0.5vw 1vw;
+  background: var(--secondary-color);
+  color: var(--primary-color);
+  padding: 0.2vw 0.6vw;
   border-radius: 0.5vw;
-  font-size: 0.8vw;
+  font-size: 1vw;
   white-space: nowrap;
   opacity: 0;
   pointer-events: none;
-  transition: opacity 0.2s ease;
-  z-index: 10;
-  min-width: max-content;
+  transform: translateX(-50%);
+  z-index: 1;
+
 }
 
-.item-tooltip::after {
+.global-tooltip::after {
   content: '';
   position: absolute;
   top: 100%;
   left: 50%;
   transform: translateX(-50%);
-  border-width: 0.5vw;
-  border-style: solid;
-  border-color: var(--primary-color) transparent transparent transparent;
+  width: 0;
+  height: 0;
+  border-left: 0.5vw solid transparent;
+  border-right: 0.5vw solid transparent;
+  border-top: 0.5vw solid var(--secondary-color);
+  
 }
 
-.color-item:hover .item-tooltip,
-.color-item.selected .item-tooltip {
-  opacity: 1;
+.item-name {
+  font-weight: 600;
+  font-size: 0.8vw;
 }
 
-/* Conserver vos styles existants pour .color-grid, .brick, etc. */
+.item-price {
+  font-size: 0.6vw;
+  opacity: 0.9;
+}
+
+
+
+
+
+
+
+/* Styles pour les différents modes */
+.color-grid[data-presentation="carousel"] {
+  position: relative;
+  overflow: hidden;
+}
+
+
+
+/* Flèches seulement pour le mode carousel */
+.color-grid[data-presentation="carousel"] ~ .carousel-arrow {
+  display: flex;
+}
+
+.color-grid[data-presentation="scroll"] ~ .carousel-arrow {
+  display: none;
+}
+/* Styles pour le carrousel */
+.color-grid[data-presentation="carousel"] {
+  position: relative;
+  overflow: hidden;
+  display: block;
+}
+
+.brick-carousel-track {
+  display: flex;
+  transition: transform 0.3s ease;
+  height: 100%;
+}
+
+.brick-carousel-slide {
+  flex: 0 0 100%;
+  display: grid;
+  gap: 1vw;
+  padding: 0.5vw;
+}
+
+/* Flèches */
+.carousel-arrow {
+  position: absolute;
+  top: 57%;
+  transform: translateY(-50%);
+  background: rgba(255, 255, 255, 0.9);
+  border: none;
+  width: 2.5vw;
+  height: 2.5vw;
+  border-radius: 50%;
+  cursor: pointer;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0.1vw 0.3vw rgba(0, 0, 0, 0.2);
+}
+
+.carousel-arrow.prev {
+  left: -1vw;
+}
+
+.carousel-arrow.next {
+  right: -1vw;
+}
+
+.carousel-arrow svg {
+  width: 1.2vw;
+  height: 1.2vw;
+  fill: var(--primary-color);
+}
+
+/* Cacher les flèches par défaut */
+.carousel-arrow {
+  display: none;
+}
+
+/* Afficher seulement pour les carrousels */
+.color-grid {
+  display: grid;
+  gap: 1vw;
+  width: 100%;
+}
+
+.color-item {
+  width: 3vw !important;
+  height: 3vw !important;
+  min-width: 3vw;
+  min-height: 3vw;
+  box-sizing: border-box;
+}
+
+/* Pour le mode carousel seulement */
+.color-grid[data-presentation="carousel"] {
+  overflow: hidden;
+}
+
+/* Pour le mode scroll seulement */
+.color-grid[data-presentation="scroll"] {
+  overflow-x: auto;
+}
+/* Style pour le fill-direction rows */
+.color-grid[data-fill-direction="rows"] {
+  grid-auto-flow: row;
+}
+
+/* Style pour le fill-direction cols (défaut) */
+.color-grid[data-fill-direction="cols"] {
+  grid-auto-flow: column;
+}
+
+/* Style pour le fill-direction dans les carrousels */
+.brick-carousel-slide[data-fill-direction="rows"] {
+  grid-auto-flow: row;
+}
+
+.brick-carousel-slide[data-fill-direction="cols"] {
+  grid-auto-flow: column;
+}
+
+::-webkit-scrollbar {
+  display: none;
+}
+.color-grid[data-presentation="scroll"] {
+  overflow-x: auto;
+
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE/Edge Legacy */
+}
+
+/* Chrome, Safari, Edge (WebKit) */
+.color-grid[data-presentation="scroll"]::-webkit-scrollbar {
+  display: none;
+}
+
+/* Styles spécifiques pour le mode scroll */
+.color-grid[data-presentation="scroll"] {
+  -ms-overflow-style: none;
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  overflow-y: visible !important;
+}
+
+.color-grid[data-presentation="scroll"] > div {
+  flex-shrink: 0;
+  scroll-snap-align: start;
+}
+
+/* Masquer les flèches pour le mode scroll */
+.color-grid[data-presentation="scroll"] ~ .carousel-arrow {
+  display: none !important;
+}
+.color-grid[data-presentation="scroll"]::-webkit-scrollbar {
+  display: none;
+}
